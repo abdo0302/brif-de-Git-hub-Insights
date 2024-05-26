@@ -1,14 +1,6 @@
 import './styles.css';
 import Chart from 'chart.js/auto';
 import moment from 'moment';
-const myHeaders = new Headers();
-
-
-const requestOptions = {
-  method: "GET",
-  headers: myHeaders,
-  redirect: "follow"
-};
 
 let baseUrl="https://api.github.com/users/";
 let mayUserName="abdo0302";
@@ -40,12 +32,13 @@ let language=[]
 let namber_de_lang={}
 
 
-fetch(baseUrl+mayUserName,requestOptions)
+fetch(baseUrl+mayUserName)
 .then((response)=>response.json())
 .then((responseDta)=>{
+    loading.style.display="none"
 
            //git emojis
-    fetch('https://api.github.com/emojis',requestOptions)
+    fetch('https://api.github.com/emojis')
     .then((repons)=>repons.json())
     .then((resDta)=>{
         if(resDta[responseDta.company]==undefined){
@@ -106,7 +99,7 @@ function mayRepos() {
     language.length=0
     namber_de_lang.length=0
     all_language.length=0
-    fetch(baseUrl+mayUserName+"/repos",requestOptions)
+    fetch(baseUrl+mayUserName+"/repos")
     .then((repos)=>repos.json())
     .then((repo)=>{
         repo.forEach(element=> {
@@ -221,7 +214,7 @@ let flag_search=document.querySelector('.flag_search')
 let contenar_de_log=document.querySelector('.contenar_de_log')
 //gei dat de profile insights
 function data_de_profile() {
-    fetch(baseUrl+mayUserName,requestOptions)
+    fetch(baseUrl+mayUserName)
     .then((r)=>r.json())
     .then((re)=>{
         image_profile_insights.src=re.avatar_url
